@@ -1,7 +1,7 @@
 version: 2 
 # if only a single job then the name is called build, otherwise create a name for each build step
 jobs: 
-   one: 
+   build: 
      docker: 
        - image: docker:latest
      steps: 
