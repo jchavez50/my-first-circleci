@@ -7,17 +7,17 @@ jobs:
      steps: 
        - checkout
        - run: echo "hello world!"
-   two: 
-     docker: 
-       - image: docker:latest
-     steps: 
-       - checkout
-       - run: echo "hello world again!"
+#    two: 
+#      docker: 
+#        - image: docker:latest
+#      steps: 
+#        - checkout
+#        - run: echo "hello world again!"
 
-# define how the workflow is going to run 
-workflows: 
-  version: 2
-  one_and_two:
-    jobs: 
-      - one: 
-      - two: 
+# # define how the workflow is going to run 
+# workflows: 
+#   version: 2
+#   one_and_two:
+#     jobs: 
+#       - one: 
+#       - two: 
