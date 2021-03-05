@@ -1,18 +1,18 @@
 version: 2 
 # if only a single job then the name is called build, otherwise create a name for each build step
 jobs: 
-   one: 
-     docker: 
-       - image: docker:latest
-     steps: 
-       - checkout
-       - run: echo "hello world!"
-   two: 
-     docker: 
-       - image: docker:latest
-     steps: 
-       - checkout
-       - run: echo "hello world again!"
+  one: 
+    docker: 
+      - image: docker:latest
+      steps: 
+        - checkout
+        - run: echo "hello world!"
+  two:
+    docker: 
+      - image: docker:latest
+      steps: 
+        - checkout
+        - run: echo "hello world again!"
 
 # define how the workflow are going to run 
 workflows: 
