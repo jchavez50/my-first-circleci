@@ -1,4 +1,4 @@
-version: 1 
+version: 2 
 # if only a single job then the name is called build, otherwise create a name for each build step
 jobs: 
    one: 
@@ -16,7 +16,7 @@ jobs:
 
 # define how the workflow is going to run 
 workflows: 
-  version: 1
+  version: 2
   one_and_two:
     jobs: 
       - one: 
