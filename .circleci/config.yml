@@ -12,27 +12,27 @@ jobs:
           root: my_workspace
           paths: 
             - test
-  two: 
-    docker: # it runs inside a docker image, the same as above.
-      - image: docker:latest
+  two:
+    docker:
+      - image: circleci/node:4.8.2
     steps:
       - checkout
-      - run: echo "Hello World Again" 
-      - attach_workspace: 
+      - run: echo "A more familiar hi"  
+      - attach_workspace:
           at: my_workspace
+
       - run: |
-          if [[ $(cat my_workspace/test) == "Trying out workspaces" ]]; then
-            echo "It worked!"
+          if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
+            echo "It worked!";
           else
             echo "Nope!"; exit 1
           fi
-
-# Define our workflows 
 workflows:
   version: 2
-  one_and_two: 
-    jobs: 
+  one_and_two:
+    jobs:
       - one
-      - two: 
-          requires: 
+      - two:
+          # check first step before processing second
+          requires:
             - one
