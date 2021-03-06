@@ -9,9 +9,9 @@ jobs:
       - run: mkdir -p my_workspace
       - run: echo "Testing my workspace" > my_workspace/test
       - persist_to_workspace: 
-        root: my_workspace
-        paths: 
-          - test
+          root: my_workspace
+          paths: 
+            - test
   two: 
     docker: # it runs inside a docker image, the same as above.
       - image: docker:latest
