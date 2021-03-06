@@ -6,16 +6,33 @@ jobs:
     steps:
       - checkout 
       - run: echo "Hello World!" 
+      - run: mkdir -p my_workspace
+      - run: echo "Testing my workspace" > my_workspace/test
+      - persist_to_workspace: 
+        root: my_workspace
+        paths: 
+          - test
   two: 
     docker: # it runs inside a docker image, the same as above.
       - image: docker:latest
     steps:
       - checkout
       - run: echo "Hello World Again" 
+      - attach_workspace: 
+        at: my_workspace
+      - run: |
+        if [[ $(cat my_workspace/test) == "Trying out workspaces" ]]; then
+          echo "It worked!"
+        else
+          echo "Nope!"; exit 1
+        fi
+
 # Define our workflows 
 workflows:
   version: 2
   one_and_two: 
     jobs: 
       - one
-      - two
+      - two: 
+        requires: 
+          - one
