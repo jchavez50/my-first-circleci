@@ -1,31 +1,34 @@
 version: 2
-jobs: 
-  one: 
-    docker: 
-      - image: docker:latest 
+jobs:
+  one:
+    docker:
+      - image: docker:latest
     steps:
-      - checkout 
-      - run: echo "Hello World!" 
+      - checkout
+      - run: echo "Hello world!"
       - run: mkdir -p my_workspace
-      - run: echo "Testing my workspace" > my_workspace/test
-      - persist_to_workspace: 
+      - run: echo "Testing workspace" > my_workspace/test
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory
           root: my_workspace
-          paths: 
-            - test
+          # Must be relative path from root
+          paths:
+            - test    
+          
   two:
     docker:
       - image: circleci/node:4.8.2
     steps:
       - checkout
-      - run: echo "A more familiar hi"  
+      - run: echo "Hello world, again!"  
       - attach_workspace:
           at: my_workspace
 
       - run: |
-          if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
+          if [[ $(cat my_workspace/echo-output) == "Testing workspaces" ]]; then
             echo "It worked!";
           else
-            echo "Nope!"; exit 1
+            echo "Not workings!"; exit 1
           fi
 workflows:
   version: 2
