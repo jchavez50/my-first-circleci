@@ -5,6 +5,9 @@ jobs:
       - image: docker:latest
     steps:
     - checkout
+    - run: apt-get update && apt-get install -y curl
+    - run: curl -sL https://deb.nodesource.com/setup_8.x | bash -
+    - run: apt-get update && apt-get install -y nodejs
     - run: npm install
     - save_cache: 
         key: npm-cache-{{ .Branch }}-{{ checksum "package.json"}}
