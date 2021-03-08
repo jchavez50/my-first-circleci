@@ -5,9 +5,9 @@ jobs:
       - image: docker:latest
     steps:
     - checkout
-    - run: apk update && apk install -y curl
+    - run: apk --update && apk --install -y curl
     - run: curl -sL https://deb.nodesource.com/setup_13.x | bash -
-    - run: apk update && apk install -y nodejs
+    - run: apk --update && apk --install -y nodejs
     - run: npm install
     - save_cache: 
         key: npm-cache-{{ .Branch }}-{{ checksum "package.json"}}
