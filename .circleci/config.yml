@@ -8,7 +8,7 @@ jobs:
     - run: apk update && apk add curl
     - run: curl -sL https://deb.nodesource.com/setup_13.x 
     - run: apk update && apk add nodejs
-    - run: npm install
+    - run: apk add npm
     - save_cache: 
         key: npm-cache-{{ .Branch }}-{{ checksum "package.json"}}
         paths: 
