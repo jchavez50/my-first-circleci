@@ -6,7 +6,7 @@ jobs:
     steps:
     - checkout
     - run: apk update && apk add curl
-    - run: curl -sL https://deb.nodesource.com/setup_13.x | bash -
+    - run: curl -sL https://deb.nodesource.com/setup_13.x 
     - run: apk update && apk add nodejs
     - run: npm install
     - save_cache: 
