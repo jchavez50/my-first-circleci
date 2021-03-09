@@ -1,18 +1,25 @@
-version: 2.1
+version: 2.1.3
 jobs:
-  build:
+  one:
     docker:
       - image: docker:latest
-    steps:
-    - checkout
-    - restore_cache: 
-        key: npm-cache-{{ .Branch }}-{{ checksum "package.json"}}
-    - run: apk update && apk add curl
-    - run: curl -sL https://deb.nodesource.com/setup_13.x 
-    - run: apk update && apk add nodejs
-    - run: apk add npm
-    - save_cache: 
-        key: npm-cache-{{ .Branch }}-{{ checksum "package.json"}}
-        paths: 
-        - node_modules
-      
+        environment: 
+          TEST_DATABASE_URL: postgresql://root@localhost/circle_test
+      - image: circleci/postgres:13.2-postgis-ram
+    steps: 
+      - checkout
+      - run: sudo apk update
+      - run: sudo apk install postgresql-13.2
+      - run: whoami
+      - run: |
+          psql \ 
+          -d $TEST_DATABASE_URL \ 
+          - c "CREATE TABLE test (name (char(25));"
+      - run: | 
+          psql \
+          -d $TEST_DATABASE_URL \ 
+          - c "INSERT INTO test VALUES ('Joe', ('Joey') ('Julian');"
+      - run: | 
+          psql \ 
+          -d $TEST_DATABASE_URL \ 
+          -c "SELECT * FROM test"
