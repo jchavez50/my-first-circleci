@@ -6,10 +6,12 @@ jobs:
         environment: 
           TEST_DATABASE_URL: postgresql://root@localhost/circle_test
       - image: circleci/postgres:13.2-postgis-ram
+          environment:
+            POSTGRES_HOST_AUTH_METHOD: trust
     steps: 
       - checkout
-      - run: sudo apk update
-      - run: sudo apk install postgresql-13.2
+      - run: apk update
+      - run: apk install postgresql-13.2
       - run: whoami
       - run: |
           psql \ 
