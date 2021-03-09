@@ -5,13 +5,13 @@ jobs:
       - image: docker:latest
         environment: 
           TEST_DATABASE_URL: postgresql://root@localhost/circle_test
-      - image: circleci/postgres:13.2-postgis-ram
+      - image: circleci/postgres:9.6.5-alpine-ram
         environment:
           POSTGRES_HOST_AUTH_METHOD: trust
     steps: 
       - checkout
       - run: apk update
-      - run: apk add postgresql-client
+      - run: apk add postgresql-client-9.6
       - run: whoami
       - run: |
           psql \ 
@@ -20,7 +20,7 @@ jobs:
       - run: | 
           psql \
           -d $TEST_DATABASE_URL \ 
-          - c "INSERT INTO test VALUES ('Joe', ('Joey') ('Julian');"
+          - c "INSERT INTO test VALUES ('Joe'), ('Joey') ('Julian');"
       - run: | 
           psql \ 
           -d $TEST_DATABASE_URL \ 
