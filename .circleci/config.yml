@@ -11,7 +11,7 @@ jobs:
     steps: 
       - checkout
       - run: apk update
-      - run: apk install postgresql-13.2
+      - run: apk add postgresql-13.2
       - run: whoami
       - run: |
           psql \ 
